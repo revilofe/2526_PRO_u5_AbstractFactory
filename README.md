@@ -1,5 +1,7 @@
 # Ejercicio: Patrón **Abstract Factory** con Kotlin
 
+[Abstract Factory](https://refactoring.guru/es/design-patterns/factory-method)
+
 Imagina que estás desarrollando un juego de aventuras donde el jugador elige el **tipo de mundo** en el que quiere jugar. Ese detalle cambia por completo el equipamiento: en un mundo medieval el héroe usa **espada, caballo y cota de malla**, mientras que en un mundo futurista usa **láser, moto‑jet y escudo de energía**. Tu misión es diseñar el código para que el juego pueda cambiar de mundo **sin reescribir el cliente**. Por eso usamos **Abstract Factory**: para crear familias de objetos compatibles sin acoplar el resto del sistema a clases concretas.
 
 Este repositorio es un ejercicio guiado para practicar **Abstract Factory** en Kotlin. Tu objetivo es completar y entender la solución, no solo ejecutarla.
