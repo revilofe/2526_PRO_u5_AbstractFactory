@@ -21,12 +21,12 @@ interface Armadura {
     fun proteger(): String
 }
 
-// 2) Fábrica abstracta:
+// 2) Fábrica abstracta (clase abstracta):
 //    Declara los métodos para crear cada tipo de producto.
-interface MundoFactory {
-    fun crearArma(): Arma
-    fun crearVehiculo(): Vehiculo
-    fun crearArmadura(): Armadura
+abstract class MundoFactory {
+    abstract fun crearArma(): Arma
+    abstract fun crearVehiculo(): Vehiculo
+    abstract fun crearArmadura(): Armadura
 }
 
 // 3) Productos concretos para el MUNDO MEDIEVAL:
@@ -58,13 +58,13 @@ class EscudoDeEnergia : Armadura {
 
 // 5) Fábricas concretas:
 //    Crean una familia coherente de productos.
-class MundoMedievalFactory : MundoFactory {
+class MundoMedievalFactory : MundoFactory() {
     override fun crearArma(): Arma = Espada()
     override fun crearVehiculo(): Vehiculo = Caballo()
     override fun crearArmadura(): Armadura = CotaDeMalla()
 }
 
-class MundoFuturistaFactory : MundoFactory {
+class MundoFuturistaFactory : MundoFactory() {
     override fun crearArma(): Arma = Laser()
     override fun crearVehiculo(): Vehiculo = MotoJet()
     override fun crearArmadura(): Armadura = EscudoDeEnergia()

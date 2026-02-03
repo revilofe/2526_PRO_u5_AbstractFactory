@@ -2,6 +2,8 @@
 
 [Abstract Factory](https://refactoring.guru/es/design-patterns/factory-method)
 
+Referencia de apoyo: **Factory Method** en Refactoring.guru. En esa explicación, la clase creadora se muestra como **clase abstracta** (por ejemplo, `Dialog` abstracta con `createButton()`), y esa idea se refleja aquí en `MundoFactory`.
+
 Imagina que estás desarrollando un juego de aventuras donde el jugador elige el **tipo de mundo** en el que quiere jugar. Ese detalle cambia por completo el equipamiento: en un mundo medieval el héroe usa **espada, caballo y cota de malla**, mientras que en un mundo futurista usa **láser, moto‑jet y escudo de energía**. Tu misión es diseñar el código para que el juego pueda cambiar de mundo **sin reescribir el cliente**. Por eso usamos **Abstract Factory**: para crear familias de objetos compatibles sin acoplar el resto del sistema a clases concretas.
 
 Este repositorio es un ejercicio guiado para practicar **Abstract Factory** en Kotlin. Tu objetivo es completar y entender la solución, no solo ejecutarla.
@@ -12,10 +14,14 @@ Implementar un pequeño juego que puede ambientarse en **dos mundos** (medieval 
 - `Vehiculo`
 - `Armadura`
 
-El cliente (`Juego`) **no debe** conocer clases concretas. Debe depender únicamente de **interfaces** y la **fábrica abstracta**.
+El cliente (`Juego`) **no debe** conocer clases concretas. Debe depender únicamente de **interfaces** y una **clase abstracta** de fábrica.
+
+En este ejercicio verás la diferencia entre:
+- **Interfaces**: definen el contrato sin estado (por ejemplo `Arma`, `Vehiculo`, `Armadura`).
+- **Clase abstracta**: puede definir contrato y comportamiento base compartido (por ejemplo `MundoFactory` como fábrica abstracta, y `Explorador` como base común).
 
 ## Lo que ya está hecho
-- Interfaces de productos y fábricas.
+- Interfaces de productos y clase abstracta de fábrica.
 - Fábricas concretas para cada mundo.
 - Cliente (`Juego`) y un personaje (`Explorador`).
 - Etapa de configuración (`ConfiguradorJuego`) separada del cliente.
@@ -61,7 +67,7 @@ interface Armadura {
   +proteger(): String
 }
 
-interface MundoFactory {
+abstract class MundoFactory <<abstract>> {
   +crearArma(): Arma
   +crearVehiculo(): Vehiculo
   +crearArmadura(): Armadura
@@ -77,7 +83,7 @@ class EscudoDeEnergia
 class MundoMedievalFactory
 class MundoFuturistaFactory
 
-abstract class Explorador {
+abstract class Explorador <<abstract>> {
   -arma: Arma
   -vehiculo: Vehiculo
   -armadura: Armadura
@@ -106,8 +112,8 @@ Arma <|.. Laser
 Vehiculo <|.. MotoJet
 Armadura <|.. EscudoDeEnergia
 
-MundoFactory <|.. MundoMedievalFactory
-MundoFactory <|.. MundoFuturistaFactory
+MundoFactory <|-- MundoMedievalFactory
+MundoFactory <|-- MundoFuturistaFactory
 
 Explorador <|-- ExploradorCurioso
 
@@ -134,9 +140,9 @@ TipoMundo <-- ConfiguracionMundo
 @startuml
 actor Usuario
 participant "ConfiguradorJuego" as Config
-participant "MundoFactory" as Factory
+participant "MundoFactory <<abstract>>" as Factory
 participant "Juego" as Juego
-participant "Explorador" as Explorador
+participant "Explorador <<abstract>>" as Explorador
 participant "Arma" as Arma
 participant "Vehiculo" as Vehiculo
 participant "Armadura" as Armadura
